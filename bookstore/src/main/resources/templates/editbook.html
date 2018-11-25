@@ -3,31 +3,42 @@
 <head>
     <title>Bookstore - edit a book</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+        <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+		<htmlxmlns:th="http://www.thymeleaf.org"xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 </head>
 <body>
 	<h1>Edit book</h1>
 	<div>
 		<form th:object="${book}" th:action="@{../save}" action="#" method="post">
-			<input type="hidden"th:field="*{id}"/>
+			<input type="hidden" th:field="*{id}"/>
 		  	<label for="author">Author</label>
+        	<label th:if="${#fields.hasErrors('author')}" th:errors="*{author}" class="alert alert-danger">Error</label>
 			<input type="text" id="author" th:field="*{author}" class="form-control" />
 			<div class="form-group"></div>
 		  	<label for="title">Title</label>
+      	 	<label th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="alert alert-danger">Error</label>
 			<input type="text" id="title" th:field="*{title}" class="form-control" />
 			<div class="form-group"></div>
 		  	<label for="isbn">ISBN</label>
+        	<label th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}" class="alert alert-danger">Error</label>
 			<input type="text" id="isbn" th:field="*{isbn}" class="form-control" />
 			<div class="form-group"></div>
 		  	<label for="year">Year</label>
+        	<label th:if="${#fields.hasErrors('year')}" th:errors="*{year}" class="alert alert-danger">Error</label>
 			<input type="text" id="year" th:field="*{year}" class="form-control" />
 			<div class="form-group"></div>
 		  	<label for="price">Price</label>
+	       	<label th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="alert alert-danger">Error</label>
 			<input type="text" id="price" th:field="*{price}" class="form-control" />
 			<div class="form-group"></div>
+		  	<label for="deplist">Department</label>
+			 <select id="deplist" th:field="*{department}" class="form-control">
+       			<option th:each="department: ${departments}" th:value="${department.departmentid}" th:text="${department.name}"></option>
+    		</select>		
+			<div style="clear: both; display: block; height: 10px;"></div>
 			<input type="submit" value="Save" class="btn btn-default"></input>    	
 	 		</form>
 	</div>
-	 		<a href="/booklist">Return to book list</a>
+	 		<a href="/booklist" class="btn btn-success">Return to book list</a>
 </body>
 </html>
